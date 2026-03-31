@@ -53,9 +53,12 @@ p {
 .tangram-imagem {
     position: absolute;
     cursor: grab;
-    touch-action: none; /* Impede o scroll ao arrastar */
+    touch-action: none;
     user-select: none;
-    transition: transform 0.2s ease;
+    /* Altere a transição para ser mais específica e rápida */
+    transition: transform 0.1s linear, left 0s, top 0s; 
+    /* Garante que ela comece com um estado de transformação definido */
+    transform: rotate(0deg); 
 }
 
 .controles {
