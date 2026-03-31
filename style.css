@@ -40,24 +40,30 @@ p {
 }
 
 #tangram-caixa {
-    width: 700px;
-    height: 500px;
+    width: 95%;          /* Ocupa quase toda a largura em telas pequenas */
+    max-width: 700px;    /* Mas não passa de 700px em telas grandes */
+    height: 400px;       /* Reduzi um pouco a altura para caber melhor em tablets */
     border: 2px solid var(--cor-destaque);
     border-radius: 20px;
     position: relative; 
-    margin-bottom: 20px;
+    margin: 0 auto 20px auto; /* Centraliza a caixa */
     overflow: hidden;
 }
 
 .tangram-imagem {
     position: absolute;
     cursor: grab;
-    /* width: 15%;  */
+    touch-action: none; /* Impede o scroll ao arrastar */
+    user-select: none;
     transition: transform 0.2s ease;
 }
 
 .controles {
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap; /* Garante que caiba em telas estreitas */
+    margin-top: 20px;
 }
 
 button {
@@ -72,7 +78,6 @@ button {
     font-family: "Bai Jamjuree", sans-serif;
 }
 
-button:hover{
-    background-color: var(--cor-historia);
-    color: white;
+button:hover {
+    background-color: #e0e0e0;
 }
