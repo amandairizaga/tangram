@@ -71,8 +71,20 @@ btnDireita.addEventListener('click', () => {
 document.addEventListener('pointermove', (e) => {
     if (pecaSelecionada && taArrastando) {
         const caixaRect = caixa.getBoundingClientRect();
-        let newX = Math.max(0, Math.min(e.clientX - offsetX, caixaRect.width - pecaSelecionada.offsetWidth));
-        let newY = Math.max(0, Math.min(e.clientY - offsetY, caixaRect.height - pecaSelecionada.offsetHeight));
+        
+        // Calculamos a nova posição livremente baseada no clique
+        let newX = e.clientX - offsetX;
+        let newY = e.clientY - offsetY;
+
+        // Criamos uma "folga" baseada no tamanho da própria peça
+        // Isso permite que as pontas da peça encostem na borda sem travar o movimento
+        const folgaX = pecaSelecionada.offsetWidth * 0.5;
+        const folgaY = pecaSelecionada.offsetHeight * 0.5;
+
+        // Limites flexíveis: a peça pode "sair" um pouco da borda técnica para compensar o giro
+        // O 'overflow: hidden' no CSS vai esconder o que passar da linha amarela
+        newX = Math.max(-folgaX, Math.min(newX, caixaRect.width - (folgaX / 2)));
+        newY = Math.max(-folgaY, Math.min(newY, caixaRect.height - (folgaY / 2)));
 
         pecaSelecionada.style.left = `${newX}px`;
         pecaSelecionada.style.top = `${newY}px`;
