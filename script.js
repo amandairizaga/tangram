@@ -5,8 +5,9 @@ const btnDireita = document.getElementById('btn-gira-direita');
 const btnAlternar = document.getElementById('btn-alternar-peca'); // Seleciona o novo botão
 
 let pecaSelecionada = null;
-let offsetX, offsetY, taArrastando = false, anguloRotacao = 0;
+let offsetX, offsetY, taArrastando = false;
 const versaoAtual = {};
+const angulosPecas = {};
 
 function posicaoAleatoria(peca) {
     const caixaRect = caixa.getBoundingClientRect();
@@ -21,10 +22,13 @@ function posicaoAleatoria(peca) {
     peca.style.position = 'absolute';
 }
 
-peca.forEach(peca => {
-    const id = peca.id;
+peca.forEach(p => {
+    const id = p.id;
     versaoAtual[id] = 1; 
-    posicaoAleatoria(peca);
+    angulosPecas[id] = 0; // Inicializa o ângulo de cada peça em 0
+    posicaoAleatoria(p);
+    
+  
 });
 
 peca.forEach(p => {
@@ -50,15 +54,17 @@ peca.forEach(p => {
 
 btnEsquerda.addEventListener('click', () => {
     if (pecaSelecionada) {
-        anguloRotacao -= 15;
-        pecaSelecionada.style.transform = `rotate(${anguloRotacao}deg)`;
+        const id = pecaSelecionada.id;
+        angulosPecas[id] -= 15; // Diminui o ângulo específico daquela peça
+        pecaSelecionada.style.transform = `rotate(${angulosPecas[id]}deg)`;
     }
 });
 
 btnDireita.addEventListener('click', () => {
     if (pecaSelecionada) {
-        anguloRotacao += 15;
-        pecaSelecionada.style.transform = `rotate(${anguloRotacao}deg)`;
+        const id = pecaSelecionada.id;
+        angulosPecas[id] += 15; // Aumenta o ângulo específico daquela peça
+        pecaSelecionada.style.transform = `rotate(${angulosPecas[id]}deg)`;
     }
 });
 
